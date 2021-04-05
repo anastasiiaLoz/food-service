@@ -14,30 +14,61 @@ const Theme = {
     DARK: 'dark-theme',
 };
 
+
+//------------------ Вариант 1 -----------------
 const themeSwitcher  = document.querySelector('.theme-switch__toggle');
-let currentTheme = localStorage.getItem('color');
+let currentTheme = JSON.parse(localStorage.getItem('color'));
+console.log(currentTheme);
 
 
-themeSwitcher.checked = false;
+themeSwitcher.addEventListener("change", () =>{
 
-function clickHandler(){
-    if(themeSwitcher.checked){
-        document.body.classList.remove(Theme.LIGHT);
-        document.body.classList.add(Theme.DARK);
-        localStorage.setItem('color', Theme.DARK)
-    }
-    else {
-        document.body.classList.add(Theme.LIGHT);
-        document.body.classList.remove(Theme.DARK);
-        localStorage.setItem('color', Theme.LIGHT);
-    }
+document.body.classList.toggle(Theme.DARK);
+
+    if(!currentTheme){
+        currentTheme = true;
+        localStorage.setItem('color', true);
+        
+        } else {
+        currentTheme = false;
+        localStorage.setItem('color', false);
 }
-themeSwitcher.addEventListener('change', clickHandler);
+})
 
-if (currentTheme !==null && currentTheme === Theme.DARK){
-    document.body.className = currentTheme;
+if (currentTheme === null) {
+    localStorage.setItem('color', false);
+}
+
+if(currentTheme){
+    document.body.classList.add(Theme.DARK);
     themeSwitcher.checked = true;
 }
+else{
+    document.body.classList.add(Theme.LIGHT)
+}
 
 
+//------------------ Вариант 2 -----------------
 
+//const themeSwitcher  = document.querySelector('.theme-switch__toggle');
+//let currentTheme = localStorage.getItem('color');
+// themeSwitcher.checked = false;
+
+// function clickHandler(){
+//     if(themeSwitcher.checked){
+//         document.body.classList.remove(Theme.LIGHT);
+//         document.body.classList.add(Theme.DARK);
+//         localStorage.setItem('color', Theme.DARK)
+//     }
+//     else {
+//         document.body.classList.add(Theme.LIGHT);
+//         document.body.classList.remove(Theme.DARK);
+//         localStorage.setItem('color', Theme.LIGHT);
+//     }
+// }
+// themeSwitcher.addEventListener('change', clickHandler);
+
+// if (currentTheme !==null && currentTheme === Theme.DARK){
+//     document.body.className = currentTheme;
+//     themeSwitcher.checked = true;
+// }
